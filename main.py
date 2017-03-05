@@ -7,10 +7,9 @@ from bottle import error
 import interface
 import content
 import security
-#globals
 
-#globals will go here
-print('globals')
+
+
 
 #setting up bottle
 app = bottle.Bottle()
@@ -28,7 +27,7 @@ def server_costumes(filename):
 
 @app.error(404)
 def error404(error):
-    return 'Nothing here, sorry'
+    return 'Page not found.'
 
 
 
@@ -38,9 +37,6 @@ def error404(error):
 
 @app.route('/')
 def main():
-
-
-
     return bottle.template(os.path.join('views','main.tpl'),)
 
 
@@ -57,15 +53,10 @@ def loadData():
     c = interface.connect()
     dict = bottle.request.json['searchProductsDict']
     price = dict['price']
-
     categories = dict['categories']
-
-    print(dict)
-
     result = interface.retrieveData(c,price,categories)
     resultHtml = content.rangeMainContent(result)
     resultJson = {'contentMain':resultHtml}
-
     return resultJson
 
 
@@ -87,10 +78,6 @@ def admin():
     checkPass = interface.checkPass(c,username,hashedPass)
 
     if checkPass:
-
-
-
-
         return adminTable()
     else:
         return bottle.template(os.path.join('views','admin.tpl'),loginVisible = '$("#edit").hide();'
@@ -120,9 +107,6 @@ def addItem():
                 save_path = os.path.join("images/costumes", name)
             print(name)
             interface.addFileName(c, name, id)
-
-
-
     return adminTable()
 
 
