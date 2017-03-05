@@ -9,7 +9,8 @@ import content
 import security
 #globals
 
-
+#globals will go here
+print('globals')
 
 #setting up bottle
 app = bottle.Bottle()
